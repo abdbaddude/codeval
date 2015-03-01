@@ -42,10 +42,15 @@ public class PascalTriangle{
 		File file = new File(args[0]);
         BufferedReader buffer = new BufferedReader(new FileReader(file));
         String line;
-        while ((line = buffer.readLine()) != null) {
+        int test_case_nr = 0;
+        int MAX_TEST_CASES = 40;
+        while ((line = buffer.readLine()) != null) {    	
             line = line.trim();
-            doPascalTriangles(Integer.parseInt(line));
+            if(!line.isEmpty()  && !line.equals("") && !line.equals("\n") ){
+            	if(test_case_nr++ >= MAX_TEST_CASES ) break; //Test Cases must be less than MAX_TEST_CASES
+            	doPascalTriangles(Integer.parseInt(line));
+            }
         }	
-        return 0;			
+        System.exit(1);			
 	}
 }
