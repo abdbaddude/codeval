@@ -24,12 +24,21 @@ def remove_characters(line):
 	scrub=line.split(",")[1].strip()
 	return "".join([i for i in list(source) if i not in scrub]).strip()
 
-import sys
-test_cases = open(sys.argv[1], 'r')
-for test in test_cases:
-    # ignore test if it is an empty line
-    if not test.strip():
-    	continue
-    # 'test' represents the test case, do something with it
-    print(remove_characters(test))
-test_cases.close()
+if __name__ == '__main__':
+	import sys
+	test_cases = open(sys.argv[1], 'r')	
+	tests=test_cases.readlines()
+	test_case = 0
+	MAX_TEST_CASE_NBR=40	
+	try:
+		for test in tests:		 
+				''' The 40 TC constraint'''		
+				if (test_case == MAX_TEST_CASE_NBR):
+						break
+				if test.strip(): #only nonempty lines are considered
+					print(remove_characters(test))
+					test_case += 1	
+		EXIT_CODE = 0
+	except:
+		EXIT_CODE = -1	
+	sys.exit(EXIT_CODE)	

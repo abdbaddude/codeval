@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 
 """
-You are given a sorted array of positive integers and a number 'X'. Print out all pairs of numbers whose sum is equal to X. Print out only unique pairs and the pairs should be in ascending order
+You are given a sorted array of positive integers and a number 'X'. Print out all pairs of 
+numbers whose sum is equal to X. 
+Print out only unique pairs and the pairs should be in ascending order
 
 INPUT SAMPLE:
 
-Your program should accept as its first argument a filename. This file will contain a comma separated list of sorted numbers and then the sum 'X', separated by semicolon. Ignore all empty lines. If no pair exists, print the string NULL e.g.
+Your program should accept as its first argument a filename.
+This file will contain a comma separated list of sorted numbers and then the sum 'X', 
+separated by semicolon. 
+Ignore all empty lines. 
+If no pair exists, print the string NULL e.g.
 
 1,2,3,4,6;5
 2,4,5,6,9,11,15;20
@@ -23,24 +29,24 @@ NULL
 """
 Number pairing
 """
-def number_pairing(numbersStr):
-	sumX=int(numbersStr.split(";")[1])
-	numbers=numbersStr.split(";")[0].split(",")
-	consider = [ int(i) for i in numbers if ( int(i) <= sumX )] #Remove numbers greater than the sum
-	sumXpairs = []
+def number_pairing(inputStr):
+	sumX=int(inputStr.split(";")[1])
+	sorted_array_positive_numbers=inputStr.split(";")[0].split(",")
+	consider = [ int(i) for i in sorted_array_positive_numbers if int(i) < sumX ] #Remove numbers greater than the sum.Retain only +ve integers
+	consider.sort()
+	sumXpairs,pair = [],[]
+
 	while len(consider) > 0:
-		print(consider)
-		head,*tail=consider
-		if sumX-head in consider:
-			pair = []
+		head,*tail = consider
+		sumXdiff = sumX-head
+		if sumXdiff in tail :
+			pair = []	
 			pair.append(head)
-			pair.append(sumX-head)
-			consider.remove(head)
-			consider.remove(sumX-head)
+			pair.append(sumXdiff)
+			tail.remove(sumXdiff)
 			if pair not in sumXpairs:
 				sumXpairs.append(pair)
-		else:
-			consider = tail	
+		consider = tail	
 	return sumXpairs
 
 
@@ -48,15 +54,22 @@ if __name__ == '__main__':
 	import sys
 	if (len(sys.argv) > 1):
 		try:
-			for line in open(sys.argv[1],'r'):
+			test_case = 0
+			MAX_TEST_CASE_NBR=40
+			for line in open(sys.argv[1],'rU'):
 				if not line.strip() :  #ignore empty lines
-					continue			
-				list=number_pairing(line.strip())
+					continue
+					
+				if (test_case == MAX_TEST_CASE_NBR):
+						break
+								
+				list=number_pairing(line)
 				list=";".join([ ",".join([ str(halofpair) for halofpair in pair ]) for pair in list])
 				if len(list) > 1: 
 					print(list)
 				else:
-					print("NULL")			
+					print("NULL")
+				test_case += 1			
 			EXIT_CODE = 0
 		except:
 			EXIT_CODE = -1	
