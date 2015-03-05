@@ -14,40 +14,39 @@ def number_of_y_move(inputfile):
 	DETAILS
 	CHALLENGE DESCRIPTION:
 
-	There are two details on a M*N checkered field. The detail X covers several (at least one) first cells in each line. The detail Y covers several (at least one) last cells. Each cell is either fully covered with a detail or not.
+	There are two details on a M*N checkered field. 
+	The detail X covers several (at least one) first cells in each line. 
+	The detail Y covers several (at least one) last cells. 
+	Each cell is either fully covered with a detail or not.
 
 	For example:
-
-
-
-	The detail Y starts moving left (without any turn) until it bumps into the X detail at least with one cell. Determine by how many cells the detail Y will be moved.
+	
+	The detail Y starts moving left (without any turn) until it bumps into the X detail at 
+		least with one cell. Determine by how many cells the detail Y will be moved.
 
 	INPUT SAMPLE:
 
-	The first argument is a file with different test cases. Each test case contains a matrix the lines of which are separated by comma. (Empty cells are marked as ".")
+	The first argument is a file with different test cases. 
+	Each test case contains a matrix the lines of which are separated by comma. 
+	(Empty cells are marked as ".")
 
 	For example:
 
-
-	1
-	2
-	3
-	XX.YY,XXX.Y,X..YY,XX..Y
-	XX...YY,X....YY,XX..YYY,X..YYYY
-	XXYY,X..Y,XX.Y
+	1 XX.YY,XXX.Y,X..YY,XX..Y
+	2 XX...YY,X....YY,XX..YYY,X..YYYY
+	3 XXYY,X..Y,XX.Y
+	
 	OUTPUT SAMPLE:
 
 	Print out the number of cells the detail Y will be moved.
 
 	For example:
 
-
 	1
-	2
-	3
 	1
 	2
 	0
+	
 	CONSTRAINTS:
 
 	The matrices can be of different M*N sizes. (2 <= M <= 10, 2 <= N <= 10)
@@ -63,8 +62,10 @@ def number_of_y_move(inputfile):
 		rows=matrix.split(",")
 		m = len(rows)
 		if  2<=m and m <= 10:
-			nbr_cells_to_move = min([row.count(".")  for row in rows if row.startswith('X') and row.endswith('Y')  and (len(row) >=2  and len(row) <= 10 )])
-		print(nbr_cells_to_move)
+			nbr_cells_to_move = min([row.count(".")  \
+				for row in rows \
+				if row.startswith('X') and row.endswith('Y')  and ( len(row) >=2  and len(row) <= 10 )])
+			print(nbr_cells_to_move)
 		test_case += 1
 
 
