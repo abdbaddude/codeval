@@ -68,6 +68,14 @@ def gcd(x,y):
 		return gcd(x,y-x)
 		 
 def even_or_odd_product_name_SS(product_name,customers_name): 
+	"""
+	1. If the number of letters in the product's name is even then the SS is the number of 
+	   vowels (a, e, i, o, u, y) in the customer's name multiplied by 1.5. 
+	2. If the number of letters in the product's name is odd then the SS is the number of 
+	   consonants in the customer's name. 
+	3. If the number of letters in the product's name shares any common factors (besides 1) 
+	   with the number of letters in the customer's name then the SS is multiplied by 1.5. 
+	"""
 	product_name = name_letters_only(product_name)       #only letters considered
 	customers_name = name_letters_only(customers_name)   #only letters considered
 	vowels = ('a', 'e', 'i', 'o', 'u', 'y')
@@ -88,9 +96,10 @@ def discount_offers(line):
 		customer_possible_discount_offers = dict()
 		for product in products:
 			customer_possible_discount_offers[product] = even_or_odd_product_name_SS(product,customer)
+		print("{}".format(customer_possible_discount_offers.values()))
 		max_customer_discount_offer = max(zip(customer_possible_discount_offers.values(), customer_possible_discount_offers.keys()))
-		max_offer[customer] = max_customer_discount_offer
-	return ("{:s}".format(max_customer_discount_offer.key()))
+		max_offer[customer] = max_customer_discount_offer		
+
 
 if __name__ == '__main__':
 	import sys
@@ -104,12 +113,24 @@ if __name__ == '__main__':
 				if (test_case == MAX_TEST_CASE_NBR):
 						break
 				if test.strip(): #only nonempty lines are considered
-					print(discount_offers(test))
-					test_case += 1	
+					discount_offers(test.strip())
+				test_case += 1	
 		EXIT_CODE = 0
 	except:
 		EXIT_CODE = -1	
 	sys.exit(EXIT_CODE)	
+	
+	
+"""
+[
+[13.5, 9.0, 9.0, 9.0,13.5, 9.0],
+[ 6.0, 9.0, 9.0,13.5, 6.0, 6.0],
+[22.5,14.0,14.0,14.0,22.5,22.5],
+[ 9.0, 8.0, 8.0, 8.0, 9.0, 9.0],
+[ 7.5, 8.0, 8.0,12.0, 7.5, 7.5],
+[18.0,10.0,10.0,10.0,18.0,18.0]
+]
+"""
 		
 	
 
